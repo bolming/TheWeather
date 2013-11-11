@@ -1,0 +1,4 @@
+1.主要利用http://api.wunderground.com/weather/api提供的天气服务，得到
+	a,实时天气信息
+	b,天气预报
+	该服务提供xml和json两种格式的返回信息

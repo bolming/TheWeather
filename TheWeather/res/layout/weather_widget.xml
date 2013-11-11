@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/weather_widget_tv_tmpt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:singleLine="true"
+                android:text="t℃" />
+
+            <ImageButton
+                android:id="@+id/weather_widget_imgbtn_switch"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/widget_more_bg" />
+
+            <ImageView
+                android:id="@+id/weather_widget_imgv_weatherIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/clear" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="5dip"
+            android:paddingTop="10dip" >
+
+            <TextView
+                android:id="@+id/weather_widget_tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="weather" />
+
+            <TextView
+                android:id="@+id/weather_widget_tv_windDir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="wind direction" />
+
+            <TextView
+                android:id="@+id/weather_widget_tv_windSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="wind speed km/h" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/weather_widget_tv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="city" />
+
+</LinearLayout>

@@ -28,6 +28,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.bolming.weather.conf.Debug;
+
 import android.util.Log;
 
 /**
@@ -35,7 +37,7 @@ import android.util.Log;
  *
  */
 public class CityWeatherXmlParser implements WeatherDao{
-	private final static String TARGET_XML = "/opt/data/data/theweather/31.23,120.57.xml.htm";
+	private final static String TARGET_XML = "/mnt/sdcard/theweather/debug/31.23,120.57.xml";
 	private final static String TARGET_XML_URL = "http://api.wunderground.com/api/2755dad4ff1d72a3/conditions/lang:CN/q/%f,%f.xml";
 		
 	private SAXParser mXmlParser;
@@ -55,7 +57,10 @@ public class CityWeatherXmlParser implements WeatherDao{
 	
 	public void parse(MyLocation location){
 		try {
-//			mXmlParser.parse(new File(TARGET_XML), mXmlParseHandler);
+			if(Debug.DATE_LOCAL){
+				mXmlParser.parse(new File(TARGET_XML), mXmlParseHandler);
+				return ;
+			}
 			
 			if(null == location) location = MyLocation.DEF_LOCATION;
 			URL url = new URL(String.format(TARGET_XML_URL, location.latitude, location.longitude));
@@ -72,7 +77,7 @@ public class CityWeatherXmlParser implements WeatherDao{
 			HttpParams params = httpClient.getParams();
 			HttpConnectionParams.setConnectionTimeout(params, 1000 * 5);
 			HttpConnectionParams.setSoTimeout(params, 1000 * 5);
-			HttpGet get = new HttpGet(TARGET_URL);
+			HttpGet get = new HttpGet(TARGET_XML_URL);
 			HttpResponse response = httpClient.execute(get);
 
 			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){

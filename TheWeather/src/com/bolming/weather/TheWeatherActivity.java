@@ -9,9 +9,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -238,26 +235,4 @@ public class TheWeatherActivity extends Activity {
 		}
     	
     }
-
-	class DownloadLooperThread extends Thread {
-		private Handler mHandler;
-
-		private DownloadLooperThread() {
-		}
-
-		@Override
-		public void run() {
-			Looper.prepare();
-			mHandler = new Handler() {
-				public void handleMessage(Message msg) {
-					// process incoming messages here
-				}
-			};
-			Looper.loop();
-		}
-		
-		public final Handler getHandler(){
-			return mHandler;
-		}
-	}
 }

@@ -17,9 +17,11 @@ import org.apache.http.client.HttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bolming.weather.conf.Debug;
+
 public class CityWeatherJsonParser implements WeatherDao{
-	private final static String TARGET_JSON = "/opt/data/data/theweather/31.23,120.57.json";
-	private final static String TARGET_JSON_URL = "/opt/data/data/theweather/%f,%f.json";
+	private final static String TARGET_JSON = "/mnt/sdcard/theweather/debug/31.23,120.57.json";
+	private final static String TARGET_JSON_URL = "http://api.wunderground.com/api/2755dad4ff1d72a3/conditions/lang:CN/q/%f,%f.json";
 
 	private final static String NAME_OBSERVATION = "current_observation";
 	private final static String NAME_LOCATION = "display_location";
@@ -42,29 +44,31 @@ public class CityWeatherJsonParser implements WeatherDao{
 	}
 	
 	public void parse(MyLocation mylocation){
-//		File jsonFile = new File(TARGET_JSON);
 		try {
-//			BufferedReader br = new BufferedReader(new FileReader(jsonFile));
-//			char[] buffer = new char[512];
-//			StringBuilder sb = new StringBuilder();
-//			while(-1 != br.read(buffer)){
-//				sb.append(buffer);
-//			}
-			if(null == mylocation) mylocation = MyLocation.DEF_LOCATION;
-			URL url = new URL(String.format(TARGET_JSON_URL, mylocation.latitude, mylocation.longitude) );
-			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-			httpConn.setConnectTimeout(1000 * 10);
-			httpConn.setReadTimeout(1000 * 5);
-			if(HttpURLConnection.HTTP_OK != httpConn.getResponseCode()) return;
-
-			mCityWeather = new CityWeather();
-			mWind = new Wind();
-			
-			InputStreamReader insr = new InputStreamReader(httpConn.getInputStream());
 			char[] buffer = new char[512];
 			StringBuilder sb = new StringBuilder();
-			while(-1 != insr.read(buffer)){
-				sb.append(buffer);
+			
+			if(Debug.DATE_LOCAL){
+				File jsonFile = new File(TARGET_JSON);
+				BufferedReader br = new BufferedReader(new FileReader(jsonFile));
+				while(-1 != br.read(buffer)){
+					sb.append(buffer);
+				}
+			}else{				
+				if(null == mylocation) mylocation = MyLocation.DEF_LOCATION;
+				URL url = new URL(String.format(TARGET_JSON_URL, mylocation.latitude, mylocation.longitude) );
+				HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+				httpConn.setConnectTimeout(1000 * 10);
+				httpConn.setReadTimeout(1000 * 5);
+				if(HttpURLConnection.HTTP_OK != httpConn.getResponseCode()) return;
+
+				mCityWeather = new CityWeather();
+				mWind = new Wind();
+				
+				InputStreamReader insr = new InputStreamReader(httpConn.getInputStream());
+				while(-1 != insr.read(buffer)){
+					sb.append(buffer);
+				}
 			}
 			
 			String json = sb.toString();

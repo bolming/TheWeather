@@ -17,6 +17,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.bolming.weather.Util;
 import com.bolming.weather.conf.Debug;
 
 import android.util.Log;
@@ -148,18 +149,19 @@ class ForecastParserHandler extends DefaultHandler{
 		if(TAG_FORECAST_ITEM.equals(localName)){
 			mForecastList.add(mForecast);
 			System.out.printf("period: %s, icon: %s, forcast: %s\n", 
-					mForecast.getmPeriod(), mForecast.getmIconUrl(), mForecast.getmForecast());
+					mForecast.getPeriod(), mForecast.getIconUrl(), mForecast.getForecast());
 			mForecast = null;
 			return ;
 		}
 		
 		final String value = mStrBuilder.toString();
 		if(TAG_PERIOD.equals(localName)){
-			mForecast.setmPeriod(value);
+			mForecast.setPeriod(value);
 		}else if(TAG_ICON_URL.equals(localName)){
-			mForecast.setmIconUrl(value);
+			mForecast.setIconUrl(value);
+			mForecast.setIcon(Util.loadImage(value));
 		}else if(TAG_FORECAST.equals(localName)){
-			mForecast.setmForecast(value);
+			mForecast.setForecast(value);
 		}
 	}
 	

@@ -10,7 +10,7 @@ package com.bolming.weather.dao;
 public class CityWeather {
 	private String mCity;
 	private	int mTemperature;
-	private String mWeather;
+	private String mWeather; // the weather description
 	private String mIconUrl;
 	private Wind mWind;	
 	

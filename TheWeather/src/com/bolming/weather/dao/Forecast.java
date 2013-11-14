@@ -1,30 +1,40 @@
 package com.bolming.weather.dao;
 
+import android.graphics.Bitmap;
+
 public class Forecast {
 	
 	private String mPeriod;
 	private String mIconUrl;
+	private Bitmap mIcon;
+	public Bitmap getIcon() {
+		return mIcon;
+	}
+
+	public void setIcon(Bitmap mIcon) {
+		this.mIcon = mIcon;
+	}
 	private String mForecast;
 	
 	public Forecast() {
 	}
 	
-	public String getmPeriod() {
+	public String getPeriod() {
 		return mPeriod;
 	}
-	public void setmPeriod(String mPeriod) {
+	public void setPeriod(String mPeriod) {
 		this.mPeriod = mPeriod;
 	}
-	public String getmIconUrl() {
+	public String getIconUrl() {
 		return mIconUrl;
 	}
-	public void setmIconUrl(String mIconUrl) {
+	public void setIconUrl(String mIconUrl) {
 		this.mIconUrl = mIconUrl;
 	}
-	public String getmForecast() {
+	public String getForecast() {
 		return mForecast;
 	}
-	public void setmForecast(String mForecast) {
+	public void setForecast(String mForecast) {
 		this.mForecast = mForecast;
 	}
 }

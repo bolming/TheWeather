@@ -5,16 +5,25 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/main_tv_hello"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello" />
-    
-    <include 
+
+    <include
         android:id="@+id/main_weather_widget"
-        layout="@layout/weather_widget"
         android:layout_width="200dip"
-        android:layout_height="200dip"
-        android:layout_centerInParent="true"/>
+        android:layout_height="125dip"
+        android:layout_below="@id/main_tv_hello"
+        layout="@layout/weather_widget" />
+
+    <ListView
+        android:id="@+id/main_list_forcast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dip"
+        android:layout_below="@id/main_weather_widget" >
+    </ListView>
 
     <ProgressBar
         android:id="@+id/main_prgsBar"
@@ -22,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" 
-        android:visibility="gone"/>
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

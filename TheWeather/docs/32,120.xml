@@ -1,0 +1,424 @@
+
+<response>
+	<version>0.1</version>
+	<termsofService>http://www.wunderground.com/weather/api/d/terms.html</termsofService>
+	<features>
+		<feature>forecast</feature>
+	</features>
+	<forecast>
+		<txt_forecast>
+		<date>8:00 AM CST</date>
+		<forecastdays>
+		<forecastday>
+		<period>0</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期五</title>
+		<fcttext><![CDATA[晴. 最高: 63F. 风速: 5-10 英里/小时. 风向: 西.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最高: 17C. 风速: 5-10 公里/小时. 风向: 西.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>1</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期五夜间</title>
+		<fcttext><![CDATA[晴. 最低: 50F. 风速: 5-10 英里/小时. 风向: 西南偏西.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最低: 10C. 风速: 10-15 公里/小时. 风向: 西南偏西.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>2</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期六</title>
+		<fcttext><![CDATA[晴. 最高: 66F. 风速: 10-20 英里/小时. 风向: 西.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最高: 19C. 风速: 20-30 公里/小时. 风向: 西.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>3</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期六夜间</title>
+		<fcttext><![CDATA[晴. 最低: 45F. 风速: 10-15 英里/小时. 风向: 西北.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最低: 7C. 风速: 15-20 公里/小时. 风向: 西北.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>4</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期日</title>
+		<fcttext><![CDATA[晴. 最高: 55F. 风速: 10-15 英里/小时. 风向: 西北.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最高: 13C. 风速: 20-25 公里/小时. 风向: 西北.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>5</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期日夜间</title>
+		<fcttext><![CDATA[晴. 最低: 41F. 风速: 5-10 英里/小时. 风向: 西北.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最低: 5C. 风速: 10-15 公里/小时. 风向: 西北.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>6</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期一</title>
+		<fcttext><![CDATA[晴. 最高: 54F. 风速: 10-15 英里/小时. 风向: 西北.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最高: 12C. 风速: 15-20 公里/小时. 风向: 西北.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		<forecastday>
+		<period>7</period>
+		<icon>clear</icon>
+		<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+		<title>星期一夜间</title>
+		<fcttext><![CDATA[晴. 最低: 43F. 风速: 5-10 英里/小时. 风向: 西北偏西.]]></fcttext>
+		<fcttext_metric><![CDATA[晴. 最低: 6C. 风速: 10-15 公里/小时. 风向: 西北偏西.]]></fcttext_metric>
+		<pop>0</pop>
+		</forecastday>
+		</forecastdays>
+		</txt_forecast>
+		<simpleforecast>
+		<forecastdays>
+		<forecastday>
+		<date>
+  <epoch>1384527600</epoch>
+  <pretty_short>11:00 PM CST</pretty_short>
+  <pretty>11:00 PM CST on November 15, 2013</pretty>
+  <day>15</day>
+  <month>11</month>
+  <year>2013</year>
+  <yday>318</yday>
+  <hour>23</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>十一月</monthname>
+  <monthname_short>十一月</monthname_short>
+  <weekday_short>周五</weekday_short>
+  <weekday>星期五</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CST</tz_short>
+  <tz_long>Asia/Shanghai</tz_long>
+</date>
+					<period>1</period>
+					<high>
+						<fahrenheit>63</fahrenheit>
+						<celsius>17</celsius>
+					</high>
+					<low>
+						<fahrenheit>50</fahrenheit>
+						<celsius>10</celsius>
+					</low>
+					<conditions>晴</conditions>
+					
+					<icon>clear</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+					<skyicon>sunny</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>7</mph>
+						<kph>11</kph>
+						<dir>西北</dir>
+						<degrees>307</degrees>
+					</maxwind>
+					<avewind>
+						<mph>4</mph>
+						<kph>6</kph>
+						<dir>西</dir>
+						<degrees>275</degrees>
+					</avewind>
+					<avehumidity>47</avehumidity>
+					<maxhumidity>83</maxhumidity>
+					<minhumidity>33</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1384614000</epoch>
+  <pretty_short>11:00 PM CST</pretty_short>
+  <pretty>11:00 PM CST on November 16, 2013</pretty>
+  <day>16</day>
+  <month>11</month>
+  <year>2013</year>
+  <yday>319</yday>
+  <hour>23</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>十一月</monthname>
+  <monthname_short>十一月</monthname_short>
+  <weekday_short>周六</weekday_short>
+  <weekday>星期六</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CST</tz_short>
+  <tz_long>Asia/Shanghai</tz_long>
+</date>
+					<period>2</period>
+					<high>
+						<fahrenheit>66</fahrenheit>
+						<celsius>19</celsius>
+					</high>
+					<low>
+						<fahrenheit>45</fahrenheit>
+						<celsius>7</celsius>
+					</low>
+					<conditions>晴</conditions>
+					
+					<icon>clear</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+					<skyicon>sunny</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>16</mph>
+						<kph>26</kph>
+						<dir>西北偏西</dir>
+						<degrees>284</degrees>
+					</maxwind>
+					<avewind>
+						<mph>12</mph>
+						<kph>19</kph>
+						<dir>西北偏西</dir>
+						<degrees>285</degrees>
+					</avewind>
+					<avehumidity>39</avehumidity>
+					<maxhumidity>53</maxhumidity>
+					<minhumidity>29</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1384700400</epoch>
+  <pretty_short>11:00 PM CST</pretty_short>
+  <pretty>11:00 PM CST on November 17, 2013</pretty>
+  <day>17</day>
+  <month>11</month>
+  <year>2013</year>
+  <yday>320</yday>
+  <hour>23</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>十一月</monthname>
+  <monthname_short>十一月</monthname_short>
+  <weekday_short>周日</weekday_short>
+  <weekday>星期日</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CST</tz_short>
+  <tz_long>Asia/Shanghai</tz_long>
+</date>
+					<period>3</period>
+					<high>
+						<fahrenheit>55</fahrenheit>
+						<celsius>13</celsius>
+					</high>
+					<low>
+						<fahrenheit>41</fahrenheit>
+						<celsius>5</celsius>
+					</low>
+					<conditions>晴</conditions>
+					
+					<icon>clear</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+					<skyicon>sunny</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>14</mph>
+						<kph>22</kph>
+						<dir>西北</dir>
+						<degrees>318</degrees>
+					</maxwind>
+					<avewind>
+						<mph>10</mph>
+						<kph>16</kph>
+						<dir>西北</dir>
+						<degrees>319</degrees>
+					</avewind>
+					<avehumidity>37</avehumidity>
+					<maxhumidity>45</maxhumidity>
+					<minhumidity>24</minhumidity>
+				</forecastday>
+				
+				<forecastday>
+					<date>
+  <epoch>1384786800</epoch>
+  <pretty_short>11:00 PM CST</pretty_short>
+  <pretty>11:00 PM CST on November 18, 2013</pretty>
+  <day>18</day>
+  <month>11</month>
+  <year>2013</year>
+  <yday>321</yday>
+  <hour>23</hour>
+  <min>00</min>
+  <sec>0</sec>
+  <isdst>0</isdst>
+  <monthname>十一月</monthname>
+  <monthname_short>十一月</monthname_short>
+  <weekday_short>周一</weekday_short>
+  <weekday>星期一</weekday>
+  <ampm>PM</ampm>
+  <tz_short>CST</tz_short>
+  <tz_long>Asia/Shanghai</tz_long>
+</date>
+					<period>4</period>
+					<high>
+						<fahrenheit>54</fahrenheit>
+						<celsius>12</celsius>
+					</high>
+					<low>
+						<fahrenheit>43</fahrenheit>
+						<celsius>6</celsius>
+					</low>
+					<conditions>晴</conditions>
+					
+					<icon>clear</icon>
+					<icon_url>http://icons-ak.wxug.com/i/c/k/clear.gif</icon_url>
+					<skyicon>sunny</skyicon>
+					<pop>0</pop>
+					<qpf_allday>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_allday>
+					<qpf_day>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_day>
+					<qpf_night>
+						<in>0.00</in>
+						<mm>0.0</mm>
+					</qpf_night>
+					<snow_allday>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_allday>
+					<snow_day>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_day>
+					<snow_night>
+						<in>0</in>
+						<cm>0</cm>
+					</snow_night>
+					<maxwind>
+						<mph>12</mph>
+						<kph>19</kph>
+						<dir>西北</dir>
+						<degrees>318</degrees>
+					</maxwind>
+					<avewind>
+						<mph>8</mph>
+						<kph>13</kph>
+						<dir>西北</dir>
+						<degrees>321</degrees>
+					</avewind>
+					<avehumidity>33</avehumidity>
+					<maxhumidity>49</maxhumidity>
+					<minhumidity>23</minhumidity>
+				</forecastday>
+				
+			</forecastdays>
+		</simpleforecast>
+	</forecast>
+
+	
+	
+		
+	
+
+    
+    
+    
+	
+  
+	
+	
+	
+	
+	
+    
+    
+
+
+    
+    
+    
+    
+</response>
+	

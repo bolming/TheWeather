@@ -1,0 +1,396 @@
+
+{
+  "response": {
+  "version":"0.1",
+  "termsofService":"http://www.wunderground.com/weather/api/d/terms.html",
+  "features": {
+  "forecast": 1
+  }
+	}
+		,
+	"forecast":{
+		"txt_forecast": {
+		"date":"8:00 AM CST",
+		"forecastday": [
+		{
+		"period":0,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期五",
+		"fcttext":"晴. 最高: 63F. 风速: 5-10 英里/小时. 风向: 西.",
+		"fcttext_metric":"晴. 最高: 17C. 风速: 5-10 公里/小时. 风向: 西.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":1,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期五夜间",
+		"fcttext":"晴. 最低: 50F. 风速: 5-10 英里/小时. 风向: 西南偏西.",
+		"fcttext_metric":"晴. 最低: 10C. 风速: 10-15 公里/小时. 风向: 西南偏西.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":2,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期六",
+		"fcttext":"晴. 最高: 66F. 风速: 10-20 英里/小时. 风向: 西.",
+		"fcttext_metric":"晴. 最高: 19C. 风速: 20-30 公里/小时. 风向: 西.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":3,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期六夜间",
+		"fcttext":"晴. 最低: 45F. 风速: 10-15 英里/小时. 风向: 西北.",
+		"fcttext_metric":"晴. 最低: 7C. 风速: 15-20 公里/小时. 风向: 西北.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":4,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期日",
+		"fcttext":"晴. 最高: 55F. 风速: 10-15 英里/小时. 风向: 西北.",
+		"fcttext_metric":"晴. 最高: 13C. 风速: 20-25 公里/小时. 风向: 西北.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":5,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期日夜间",
+		"fcttext":"晴. 最低: 41F. 风速: 5-10 英里/小时. 风向: 西北.",
+		"fcttext_metric":"晴. 最低: 5C. 风速: 10-15 公里/小时. 风向: 西北.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":6,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期一",
+		"fcttext":"晴. 最高: 54F. 风速: 10-15 英里/小时. 风向: 西北.",
+		"fcttext_metric":"晴. 最高: 12C. 风速: 15-20 公里/小时. 风向: 西北.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":7,
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"title":"星期一夜间",
+		"fcttext":"晴. 最低: 43F. 风速: 5-10 英里/小时. 风向: 西北偏西.",
+		"fcttext_metric":"晴. 最低: 6C. 风速: 10-15 公里/小时. 风向: 西北偏西.",
+		"pop":"0"
+		}
+		]
+		},
+		"simpleforecast": {
+		"forecastday": [
+		{"date":{
+	"epoch":"1384527600",
+	"pretty":"11:00 PM CST on November 15, 2013",
+	"day":15,
+	"month":11,
+	"year":2013,
+	"yday":318,
+	"hour":23,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"十一月",
+	"monthname_short":"十一月",
+	"weekday_short":"周五",
+	"weekday":"星期五",
+	"ampm":"PM",
+	"tz_short":"CST",
+	"tz_long":"Asia/Shanghai"
+},
+		"period":1,
+		"high": {
+		"fahrenheit":"63",
+		"celsius":"17"
+		},
+		"low": {
+		"fahrenheit":"50",
+		"celsius":"10"
+		},
+		"conditions":"晴",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"skyicon":"sunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 7,
+		"kph": 11,
+		"dir": "西北",
+		"degrees": 307
+		},
+		"avewind": {
+		"mph": 4,
+		"kph": 6,
+		"dir": "西",
+		"degrees": 275
+		},
+		"avehumidity": 47,
+		"maxhumidity": 83,
+		"minhumidity": 33
+		}
+		,
+		{"date":{
+	"epoch":"1384614000",
+	"pretty":"11:00 PM CST on November 16, 2013",
+	"day":16,
+	"month":11,
+	"year":2013,
+	"yday":319,
+	"hour":23,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"十一月",
+	"monthname_short":"十一月",
+	"weekday_short":"周六",
+	"weekday":"星期六",
+	"ampm":"PM",
+	"tz_short":"CST",
+	"tz_long":"Asia/Shanghai"
+},
+		"period":2,
+		"high": {
+		"fahrenheit":"66",
+		"celsius":"19"
+		},
+		"low": {
+		"fahrenheit":"45",
+		"celsius":"7"
+		},
+		"conditions":"晴",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"skyicon":"sunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 16,
+		"kph": 26,
+		"dir": "西北偏西",
+		"degrees": 284
+		},
+		"avewind": {
+		"mph": 12,
+		"kph": 19,
+		"dir": "西北偏西",
+		"degrees": 285
+		},
+		"avehumidity": 39,
+		"maxhumidity": 53,
+		"minhumidity": 29
+		}
+		,
+		{"date":{
+	"epoch":"1384700400",
+	"pretty":"11:00 PM CST on November 17, 2013",
+	"day":17,
+	"month":11,
+	"year":2013,
+	"yday":320,
+	"hour":23,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"十一月",
+	"monthname_short":"十一月",
+	"weekday_short":"周日",
+	"weekday":"星期日",
+	"ampm":"PM",
+	"tz_short":"CST",
+	"tz_long":"Asia/Shanghai"
+},
+		"period":3,
+		"high": {
+		"fahrenheit":"55",
+		"celsius":"13"
+		},
+		"low": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"conditions":"晴",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"skyicon":"sunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 14,
+		"kph": 22,
+		"dir": "西北",
+		"degrees": 318
+		},
+		"avewind": {
+		"mph": 10,
+		"kph": 16,
+		"dir": "西北",
+		"degrees": 319
+		},
+		"avehumidity": 37,
+		"maxhumidity": 45,
+		"minhumidity": 24
+		}
+		,
+		{"date":{
+	"epoch":"1384786800",
+	"pretty":"11:00 PM CST on November 18, 2013",
+	"day":18,
+	"month":11,
+	"year":2013,
+	"yday":321,
+	"hour":23,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"十一月",
+	"monthname_short":"十一月",
+	"weekday_short":"周一",
+	"weekday":"星期一",
+	"ampm":"PM",
+	"tz_short":"CST",
+	"tz_long":"Asia/Shanghai"
+},
+		"period":4,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"43",
+		"celsius":"6"
+		},
+		"conditions":"晴",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"skyicon":"sunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 12,
+		"kph": 19,
+		"dir": "西北",
+		"degrees": 318
+		},
+		"avewind": {
+		"mph": 8,
+		"kph": 13,
+		"dir": "西北",
+		"degrees": 321
+		},
+		"avehumidity": 33,
+		"maxhumidity": 49,
+		"minhumidity": 23
+		}
+		]
+		}
+	}
+}

@@ -1,5 +1,6 @@
 package com.bolming.weather;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,6 +36,7 @@ import com.bolming.weather.dao.CityWeatherXmlParser;
 import com.bolming.weather.dao.Forecast;
 import com.bolming.weather.dao.ForecastParser;
 import com.bolming.weather.dao.IForecastDao;
+import com.bolming.weather.dao.MyLocation;
 import com.bolming.weather.dao.WeatherDao;
 import com.bolming.weather.dao.Wind;
 
@@ -44,8 +48,8 @@ public class TheWeatherActivity extends Activity {
 	private WeatherDao mWeatherDao;
 	private CityWeather mCityWeather;
 	
-	private IForecastDao mForecastDao;
 	private List<Forecast> mForecastList;
+	private GetForecastInfoThread mGetForecastInfoThread;
 	
 	private CityWeatherParseAsyncTask mCityWeatherParseAsyncTask;
 	
@@ -56,13 +60,14 @@ public class TheWeatherActivity extends Activity {
 	private Bitmap mBmWeatherImg;
 
 	private ProgressBar mPrgsBar;
+	
+	private final static int PRGS_CURR_WEATHER_FINISH = 1 << 0;
+	private final static int PRGS_FORECAST_FINISH = 1 << 1;
 	/**
-	 * bit flags:
-	 * PRGS_CURR_WEATHER_FINISH: current weather info has finished
+	 * bit flags:<br>
+	 * PRGS_CURR_WEATHER_FINISH: current weather info has finished<br>
 	 * PRGS_FORECAST_FINISH: forecast info has finished 
 	 */
-	private int PRGS_CURR_WEATHER_FINISH = 1 << 0;
-	private int PRGS_FORECAST_FINISH = 1 << 1;
 	private int mProgress = 0;	
 	
 	private LocationManager mLocationManager;
@@ -75,10 +80,16 @@ public class TheWeatherActivity extends Activity {
 			case MSG_PULL_FORECAST_BEGIN:
 				showProgress(true, -1);
 				break;
-			case MSG_PULL_FORECAST_FINISH:
+			case MSG_PULL_FORECAST_FINISH:{
+
 				showProgress(false, PRGS_FORECAST_FINISH);
+				if(null != msg.obj){
+					mForecastList = (List<Forecast>) msg.obj;					
+				}
+
 				mForecastListViewAdapter.notifyDataSetChanged();
 				break;
+				}
 			}
 		};
 	};
@@ -94,10 +105,10 @@ public class TheWeatherActivity extends Activity {
 		mPrgsBar = new ProgressBar(mContext);
         
         mWeatherDao = new CityWeatherXmlParser();
-//        mWeatherDao = new CityWeatherJsonParser();  
-        mForecastDao = new ForecastParser();
+//        mWeatherDao = new CityWeatherJsonParser(); 
         
-        mForecastList = new ArrayList<Forecast>();
+        mGetForecastInfoThread = new GetForecastInfoThread(mContext);
+        mForecastList = new ArrayList<Forecast>(0);
         mForecastListViewAdapter = new ForecastListViewAdapter();
         
         getView();		
@@ -124,19 +135,14 @@ public class TheWeatherActivity extends Activity {
 				if(null != mCityWeatherParseAsyncTask){
 					mCityWeatherParseAsyncTask.cancel(true);
 				}
-				mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask();
+				mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);
 				mCityWeatherParseAsyncTask.execute(mWeatherDao);
 				
 				// TODO get the forecasts
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						mUiHandler.sendEmptyMessage(MSG_PULL_FORECAST_BEGIN);
-						getForecastInfo();
-						mUiHandler.sendEmptyMessage(MSG_PULL_FORECAST_FINISH);
-					}
-				}).start();
+				if(mGetForecastInfoThread.hasDied()){
+					mGetForecastInfoThread = new GetForecastInfoThread(mContext);
+					mGetForecastInfoThread.start();
+				}
 			}
 			break;
 		default:
@@ -216,27 +222,15 @@ public class TheWeatherActivity extends Activity {
 		mPrgsBar.setIndeterminate(true);
 		mLstvForecast.setAdapter(mForecastListViewAdapter);
         
-        mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask();  
+        mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);  
 		mCityWeatherParseAsyncTask.execute(mWeatherDao);
 		
 		// TODO get the forecasts
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				mUiHandler.sendEmptyMessage(MSG_PULL_FORECAST_BEGIN);
-				getForecastInfo();
-				mUiHandler.sendEmptyMessage(MSG_PULL_FORECAST_FINISH);
-			}
-		}).start();
-    }
-    
-    private void getForecastInfo(){
-    	mForecastDao.requestThenParseData(Util.readLocation(mContext));
-    	mForecastList = mForecastDao.getForecasts();
+		mGetForecastInfoThread.start();
     }
     
     private void updateWidget(CityWeather weather, Bitmap weatherImg){
+    	// get the views
     	TextView tvCity = (TextView) mWeatherWidget.findViewById(R.id.weather_widget_tv_city);
     	TextView tvWeather = (TextView) mWeatherWidget.findViewById(R.id.weather_widget_tv_weather);
     	TextView tvTmpr = (TextView) mWeatherWidget.findViewById(R.id.weather_widget_tv_tmpt);
@@ -275,25 +269,43 @@ public class TheWeatherActivity extends Activity {
     	}
     }
     
-    private class CityWeatherParseAsyncTask extends AsyncTask<WeatherDao, Integer, Boolean>{
+    private static final class CityWeatherParseAsyncTask extends AsyncTask<WeatherDao, Integer, Boolean>{
     	
-    	public CityWeatherParseAsyncTask() {
+    	private final WeakReference<TheWeatherActivity> mWeakRefActivity;
+    	
+    	public CityWeatherParseAsyncTask(TheWeatherActivity activity) {
+    		mWeakRefActivity = new WeakReference<TheWeatherActivity>(activity);
 		}
     	
     	@Override
     	protected void onPreExecute() {
-    		super.onPreExecute();    	
-    		showProgress(true, -1);
+    		super.onPreExecute();  
+    		TheWeatherActivity activity = mWeakRefActivity.get();
+    		if(null != activity){
+    			activity.showProgress(true, -1);
+    		}
     	}
 
 		@Override
 		protected Boolean doInBackground(WeatherDao... params) {
 			WeatherDao weatherDao = params[0];
-			weatherDao.parse(Util.readLocation(mContext));
-	        mCityWeather = weatherDao.getCityWeather();
-	        if(null == mCityWeather) return false;
-	        mCityWeather.show();
-	        mBmWeatherImg = loadWeatherImg(mCityWeather.getIconUrl());
+			
+			TheWeatherActivity activity = mWeakRefActivity.get();
+			if(null == activity) return false;
+			MyLocation location = Util.readLocation(activity);
+			activity = null;
+			
+			// a long term process
+			weatherDao.parse(location);
+			
+			activity = mWeakRefActivity.get();
+			if(null == activity) return false;
+			activity.mCityWeather = weatherDao.getCityWeather();
+	        
+	        if(null == activity.mCityWeather) return false;
+	        activity.mCityWeather.show();
+	        activity.mBmWeatherImg = activity.loadWeatherImg(activity.mCityWeather.getIconUrl());
+	        activity = null;
 	        
 			return true;
 		}
@@ -306,9 +318,11 @@ public class TheWeatherActivity extends Activity {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
-	        if(result) updateWidget(mCityWeather, mBmWeatherImg);		        
-	        
-    		showProgress(false, PRGS_CURR_WEATHER_FINISH);
+			TheWeatherActivity activity = mWeakRefActivity.get();
+			if(null == activity) return;
+			
+	        if(result) activity.updateWidget(activity.mCityWeather, activity.mBmWeatherImg);	        
+	        activity.showProgress(false, PRGS_CURR_WEATHER_FINISH);
 		}
 		
 		@Override
@@ -370,5 +384,59 @@ public class TheWeatherActivity extends Activity {
 			return v;
 		}
     	
+    }
+    
+    private static final class GetForecastInfoThread extends Thread{
+
+    	private IForecastDao mForecastDao;
+    	
+    	private final WeakReference<TheWeatherActivity> mWeakRefActity;
+    	
+    	private boolean mIsDead = false;
+    	
+    	public GetForecastInfoThread(TheWeatherActivity activity) {
+    		mWeakRefActity = new WeakReference<TheWeatherActivity>(activity);  
+    		
+            mForecastDao = new ForecastParser();
+		}
+    	
+    	@Override
+    	public void run() {
+    		sendEmptyMessage(MSG_PULL_FORECAST_BEGIN);
+			List<Forecast> data = getForecastInfo();
+			sendMessage(MSG_PULL_FORECAST_FINISH, -1, -1, data);
+			mIsDead = true;
+    	}    	
+    	
+    	private void sendEmptyMessage(int what){
+    		sendMessage(what, -1, -1, null);
+    	}
+    	
+    	private void sendMessage(int what, int arg1, int arg2, Object obj){
+    		TheWeatherActivity activity = mWeakRefActity.get();
+    		if(null != activity){
+    			Message msg = activity.mUiHandler.obtainMessage();
+    			msg.what = what;
+    			msg.obj = obj;
+    			msg.arg1 = arg1;
+    			msg.arg2 = arg2;
+    			activity.mUiHandler.sendMessage(msg);
+    		}
+    	}
+    	
+    	private List<Forecast> getForecastInfo(){
+    		TheWeatherActivity activity = mWeakRefActity.get();
+    		if(null != activity){
+    			MyLocation location = Util.readLocation(activity);
+    			activity = null;
+            	mForecastDao.requestThenParseData(location);
+    		}
+    		
+        	return mForecastDao.getForecasts();
+        }
+    	
+    	public boolean hasDied(){
+    		return mIsDead;
+    	}
     }
 }

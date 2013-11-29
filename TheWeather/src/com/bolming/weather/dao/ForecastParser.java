@@ -49,6 +49,9 @@ public class ForecastParser implements IForecastDao{
 		return mForecastParserHandler.getForecastList();
 	}
 
+	/**
+	 * it is a long time process so that it should not run in main thread.
+	 */
 	@Override
 	public void requestThenParseData(MyLocation location) {
 		try {

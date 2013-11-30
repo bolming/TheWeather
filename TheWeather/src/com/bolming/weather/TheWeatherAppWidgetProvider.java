@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
+import com.bolming.common.BitmapCache;
 import com.bolming.weather.dao.CityWeather;
 import com.bolming.weather.dao.CityWeatherXmlParser;
 import com.bolming.weather.dao.WeatherDao;
@@ -57,7 +58,7 @@ public class TheWeatherAppWidgetProvider extends AppWidgetProvider {
 	
 	private Bitmap loadWeatherImg(String urlStr) {
 
-		Bitmap bm = Util.loadImage(urlStr);
+		Bitmap bm = BitmapCache.getInstance().getBitmap(urlStr);
 		
 		return bm;
 	}

@@ -17,6 +17,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.bolming.common.BitmapCache;
 import com.bolming.weather.Util;
 import com.bolming.weather.conf.Debug;
 
@@ -162,7 +163,7 @@ class ForecastParserHandler extends DefaultHandler{
 			mForecast.setPeriod(value);
 		}else if(TAG_ICON_URL.equals(localName)){
 			mForecast.setIconUrl(value);
-			mForecast.setIcon(Util.loadImage(value));
+			mForecast.setIcon(BitmapCache.getInstance().getBitmap(value));
 		}else if(TAG_FORECAST.equals(localName)){
 			mForecast.setForecast(value);
 		}

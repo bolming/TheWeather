@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bolming.common.BitmapCache;
 import com.bolming.weather.dao.CityWeather;
 import com.bolming.weather.dao.CityWeatherXmlParser;
 import com.bolming.weather.dao.Forecast;
@@ -252,7 +253,7 @@ public class TheWeatherActivity extends Activity {
     
     private Bitmap loadWeatherImg(String urlStr){
     	
-        Bitmap bm = Util.loadImage(urlStr);        
+        Bitmap bm = BitmapCache.getInstance().getBitmap(urlStr);        
 		return bm;
     }
     

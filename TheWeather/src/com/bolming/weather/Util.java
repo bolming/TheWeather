@@ -77,6 +77,7 @@ public class Util {
 				HttpEntity entity = httpResponse.getEntity();			
 	            InputStream is = entity.getContent();	        
 		        bm = BitmapFactory.decodeStream(is);
+		        is.close();
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

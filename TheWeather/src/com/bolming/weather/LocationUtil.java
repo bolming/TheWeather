@@ -24,7 +24,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 
 
-public class Util {
+public class LocationUtil {
 	 public static boolean saveLocation(Context c, Location location){
 			System.out.printf("latitude: %f, longigude: %f\n", location.getLatitude(), location.getLongitude());
 			SharedPreferences sps = c.getSharedPreferences(Constants.SHARED_PREFRENCES_LOCATION, Context.MODE_PRIVATE);
@@ -50,40 +50,4 @@ public class Util {
 			
 	    	return location;
 	    }
-	 
-	 public static Bitmap loadImage(String urlStr){
-		 Bitmap bm = null;
-		 /*
-	    	try {
-		        URL url = new URL(urlStr);
-		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		        conn.setConnectTimeout(5 * 1000);        
-		        conn.setRequestMethod("GET");
-		        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-		            InputStream is = conn.getInputStream();		        
-			        bm = BitmapFactory.decodeStream(is);
-		        }
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	*/				 
-	        HttpClient httpclient = new DefaultHttpClient();
-	        HttpParams params = httpclient.getParams();
-	        HttpConnectionParams.setConnectionTimeout(params, 1000 * 5);
-	        HttpConnectionParams.setSoTimeout(params, 1000 * 5);
-	        HttpGet httpGet = new HttpGet(urlStr);
-	        try {
-				HttpResponse httpResponse= httpclient.execute(httpGet);
-				HttpEntity entity = httpResponse.getEntity();			
-	            InputStream is = entity.getContent();	        
-		        bm = BitmapFactory.decodeStream(is);
-		        is.close();
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        
-	        return bm;
-	 }
 }

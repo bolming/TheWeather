@@ -48,7 +48,7 @@ public class CityWeatherJsonParser implements WeatherDao{
 			char[] buffer = new char[512];
 			StringBuilder sb = new StringBuilder();
 			
-			if(Debug.DATE_LOCAL){
+			if(Debug.DATA_LOCAL){
 				File jsonFile = new File(TARGET_JSON);
 				BufferedReader br = new BufferedReader(new FileReader(jsonFile));
 				while(-1 != br.read(buffer)){

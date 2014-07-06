@@ -8,13 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.WeakHashMap;
 
-import com.bolming.weather.Util;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 /**
  * BitmapCache interface.
@@ -142,7 +139,7 @@ class MemBitmapCache implements IBitmapCache{
 	public Bitmap getBitmap(Object key) {
 		Bitmap bm = mCache.get(key);
 		if(null == bm){			
-			bm = Util.loadImage((String) key);
+			bm = BitmapUtil.loadImage((String) key);
 		}
 		
 		return bm;
@@ -206,7 +203,7 @@ class LocalBitmapCashe implements IBitmapCache{
 		 if(mCache.contains(cachedName)){
 			 bm = BitmapFactory.decodeFile(mCacheDir.getPath() + File.separatorChar + (String) key);
 		 }else{
-			 bm = Util.loadImage(urlStr);
+			 bm = BitmapUtil.loadImage(urlStr);
 			 cacheBitmap(bm, key);
 		 }
 		return bm;

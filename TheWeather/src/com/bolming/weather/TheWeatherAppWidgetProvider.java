@@ -106,7 +106,7 @@ public class TheWeatherAppWidgetProvider extends AppWidgetProvider {
 		@Override
 		public void run() {
 			super.run();
-			mWeatherDao.parse(Util.readLocation(mContext));
+			mWeatherDao.parse(LocationUtil.readLocation(mContext));
 			CityWeather cityWeather = mWeatherDao.getCityWeather();
 			Bitmap bm = null;
 			if(null != cityWeather)  {

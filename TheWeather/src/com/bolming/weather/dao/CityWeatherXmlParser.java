@@ -57,7 +57,7 @@ public class CityWeatherXmlParser implements WeatherDao{
 	
 	public void parse(MyLocation location){
 		try {
-			if(Debug.DATE_LOCAL){
+			if(Debug.DATA_LOCAL){
 				mXmlParser.parse(new File(TARGET_XML), mXmlParseHandler);
 				return ;
 			}

@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.bolming.common.BitmapCache;
-import com.bolming.weather.Util;
+import com.bolming.weather.LocationUtil;
 import com.bolming.weather.conf.Debug;
 
 import android.util.Log;
@@ -56,7 +56,7 @@ public class ForecastParser implements IForecastDao{
 	@Override
 	public void requestThenParseData(MyLocation location) {
 		try {
-			if (Debug.DATE_LOCAL) {
+			if (Debug.DATA_LOCAL) {
 				mXmlParser.parse(new File(XML_FORECAST_TARGET),	mForecastParserHandler);
 				return;
 			}

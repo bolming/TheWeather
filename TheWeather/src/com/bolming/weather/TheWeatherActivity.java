@@ -102,8 +102,6 @@ public class TheWeatherActivity extends Activity {
         setContentView(R.layout.main);
         
         mContext = this;
-
-		mPrgsBar = new ProgressBar(mContext);
         
         mWeatherDao = new CityWeatherXmlParser();
 //        mWeatherDao = new CityWeatherJsonParser(); 
@@ -139,7 +137,7 @@ public class TheWeatherActivity extends Activity {
 				mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);
 				mCityWeatherParseAsyncTask.execute(mWeatherDao);
 				
-				// TODO get the forecasts
+				// get the forecasts
 				if(mGetForecastInfoThread.hasDied()){
 					mGetForecastInfoThread = new GetForecastInfoThread(mContext);
 					mGetForecastInfoThread.start();
@@ -187,7 +185,7 @@ public class TheWeatherActivity extends Activity {
     
     private boolean saveLocation(Location location){
 		Log.d(Tag, "latiude: " + location.getLatitude() + ", longitude: " + location.getLongitude());
-		Util.saveLocation(mContext, location);
+		LocationUtil.saveLocation(mContext, location);
 		
     	return true;
     }
@@ -226,7 +224,7 @@ public class TheWeatherActivity extends Activity {
         mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);  
 		mCityWeatherParseAsyncTask.execute(mWeatherDao);
 		
-		// TODO get the forecasts
+		// get the forecasts
 		mGetForecastInfoThread.start();
     }
     
@@ -293,7 +291,7 @@ public class TheWeatherActivity extends Activity {
 			
 			TheWeatherActivity activity = mWeakRefActivity.get();
 			if(null == activity) return false;
-			MyLocation location = Util.readLocation(activity);
+			MyLocation location = LocationUtil.readLocation(activity);
 			activity = null;
 			
 			// a long term process
@@ -428,7 +426,7 @@ public class TheWeatherActivity extends Activity {
     	private List<Forecast> getForecastInfo(){
     		TheWeatherActivity activity = mWeakRefActity.get();
     		if(null != activity){
-    			MyLocation location = Util.readLocation(activity);
+    			MyLocation location = LocationUtil.readLocation(activity);
     			activity = null;
             	mForecastDao.requestThenParseData(location);
     		}

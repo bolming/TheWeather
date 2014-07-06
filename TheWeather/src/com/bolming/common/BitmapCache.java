@@ -29,8 +29,7 @@ interface IBitmapCache{
 	 * 
 	 * @param key
 	 * @return 
-	 * the bitmap the key indicates, which if cached return it directly, 
-	 * otherwise load the bitmap then return that.  
+	 * the bitmap the key indicates, which if cached return it directly
 	 */
 	Bitmap getBitmap(Object key);
 	/**
@@ -84,11 +83,18 @@ public class BitmapCache implements IBitmapCache{
 		return mMemCache.isCached(key) || mLocalCache.isCached(key);
 	}
 
+	/**
+	 * the bitmap the key indicates, which if cached return it directly, 
+	 * otherwise load the bitmap then return that.  
+	 */
 	@Override
 	public Bitmap getBitmap(Object key) {
 		Bitmap bm = mMemCache.getBitmap(key);
 		if(null == bm){
 			bm = mLocalCache.getBitmap(key);
+		}
+		if(null == bm){			
+			bm = BitmapUtil.loadImage((String) key);
 		}
 		
 		cacheBitmap(bm, key);
@@ -133,16 +139,11 @@ class MemBitmapCache implements IBitmapCache{
 	}
 
 	/**
-	 * return the cached bitmap if hit in the mem cache, otherwise load it from url.
+	 * return the cached bitmap if hit in the mem cache, otherwise null.
 	 */
 	@Override
 	public Bitmap getBitmap(Object key) {
-		Bitmap bm = mCache.get(key);
-		if(null == bm){			
-			bm = BitmapUtil.loadImage((String) key);
-		}
-		
-		return bm;
+		return mCache.get(key);
 	}
 
 	@Override
@@ -195,17 +196,18 @@ class LocalBitmapCashe implements IBitmapCache{
 		return mInstance;
 	}
 
+	/**
+	 * return the cached bitmap if hit in the local cache, otherwise null.
+	 */
 	@Override
 	public Bitmap getBitmap(Object key) {
 		Bitmap bm = null;
 		String urlStr = (String) key;
 		final String cachedName = getMd5(urlStr); 
 		 if(mCache.contains(cachedName)){
-			 bm = BitmapFactory.decodeFile(mCacheDir.getPath() + File.separatorChar + (String) key);
-		 }else{
-			 bm = BitmapUtil.loadImage(urlStr);
-			 cacheBitmap(bm, key);
+			 bm = BitmapFactory.decodeFile(mCacheDir.getPath() + File.separatorChar + (String) cachedName);
 		 }
+
 		return bm;
 	}
 
@@ -235,7 +237,7 @@ class LocalBitmapCashe implements IBitmapCache{
 
 	@Override
 	public boolean isCached(Object key) {
-		return mCache.contains(key);
+		return mCache.contains(getMd5((String) key));
 	}
 	
 	private String getMd5(String str){

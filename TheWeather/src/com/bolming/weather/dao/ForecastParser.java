@@ -79,7 +79,7 @@ public class ForecastParser implements IForecastDao{
 }
 
 class ForecastParserHandler extends DefaultHandler{	
-	private static final String TAG = "CDataParserHandler";
+	private static final String TAG = "ForecastParserHandler";
 	
 	private final static String TAG_PERIOD = "title";
 	private final static String TAG_ICON_URL = "icon_url";
@@ -137,7 +137,7 @@ class ForecastParserHandler extends DefaultHandler{
 		super.endElement(uri, localName, qName);
 		String poppedTag = mTagStack.pop();
 		System.out.printf("pop: %s\n", poppedTag);	
-		Log.e(TAG, "size: " + mTagStack.size() + 
+		Log.d(TAG, "size: " + mTagStack.size() + 
 				", last:" + (mTagStack.size() > 0 ? mTagStack.peek() : "null") + 
 				", reverse second:" + (mTagStack.size() >= 2 ? mTagStack.elementAt(mTagStack.size() - 2) : "null"));
 		

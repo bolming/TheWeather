@@ -4,6 +4,7 @@
 package com.bolming.weather;
 
 import com.bolming.common.BitmapCache;
+import com.bolming.weather.setting.Settings;
 
 import android.app.Application;
 
@@ -20,6 +21,7 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		BitmapCache.newInstance(this);
+		Settings.newInstance(this);
 	}
 	
 	@Override

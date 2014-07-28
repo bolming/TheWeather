@@ -6,7 +6,6 @@ package com.bolming.weather.dao;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Stack;
@@ -15,22 +14,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.bolming.weather.conf.Debug;
-
 import android.util.Log;
+
+import com.bolming.weather.conf.Debug;
+import com.bolming.weather.webservice.WebServices;
+import com.bolming.weather.webservice.WebServices.Type;
 
 /**
  * @author Wang Baoming
@@ -38,8 +30,7 @@ import android.util.Log;
  */
 public class CityWeatherXmlParser implements WeatherDao{
 	private final static String TARGET_XML = "/mnt/sdcard/theweather/debug/31.23,120.57.xml";
-	private final static String TARGET_XML_URL = "http://api.wunderground.com/api/2755dad4ff1d72a3/conditions/lang:CN/q/%f,%f.xml";
-		
+			
 	private SAXParser mXmlParser;
 	private CityWeatherXmlHandler mXmlParseHandler;
 	
@@ -61,9 +52,8 @@ public class CityWeatherXmlParser implements WeatherDao{
 				mXmlParser.parse(new File(TARGET_XML), mXmlParseHandler);
 				return ;
 			}
-			
-			if(null == location) location = MyLocation.DEF_LOCATION;
-			URL url = new URL(String.format(TARGET_XML_URL, location.latitude, location.longitude));
+
+			URL url = new URL(WebServices.getWeatherWebserviceUrl(Type.xml, location));
 			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 			httpConn.setConnectTimeout(1000 * 5);
 			httpConn.setReadTimeout(1000 * 5);

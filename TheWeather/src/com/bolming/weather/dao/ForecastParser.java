@@ -17,17 +17,17 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.bolming.common.BitmapCache;
-import com.bolming.weather.LocationUtil;
-import com.bolming.weather.conf.Debug;
-
 import android.util.Log;
+
+import com.bolming.common.BitmapCache;
+import com.bolming.weather.conf.Debug;
+import com.bolming.weather.webservice.WebServices;
+import com.bolming.weather.webservice.WebServices.Type;
 
 public class ForecastParser implements IForecastDao{
 
 	private final static String XML_FORECAST_TARGET = "/mnt/sdcard/theweather/debug/31.23,120.57.xml";
-	private final static String XML_FORECAST_TARGET_URL = "http://api.wunderground.com/api/2755dad4ff1d72a3/forecast/lang:CN/q/%f,%f.xml";
-	
+		
 	private ForecastParserHandler mForecastParserHandler;
 	private SAXParser mXmlParser;
 	
@@ -62,7 +62,7 @@ public class ForecastParser implements IForecastDao{
 			}
 
 			if (null == location) location = MyLocation.DEF_LOCATION;
-			URL url = new URL(String.format(XML_FORECAST_TARGET_URL, location.latitude, location.longitude));
+			URL url = new URL(WebServices.getForecastWebserviceUrl(Type.xml, location));
 			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 			httpConn.setConnectTimeout(1000 * 5);
 			httpConn.setReadTimeout(1000 * 5);

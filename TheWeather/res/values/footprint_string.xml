@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="footprint_del_item_dlg_title">Delete</string>
+    <string name="footprint_del_item_dlg_msg">Delete the footprint?</string>
+    <string name="footprint_del_item_dlg_cancel">Cancel</string>
+    <string name="footprint_del_item_dlg_confirm">Confirm</string>
+</resources>

@@ -14,6 +14,7 @@ import com.bolming.weather.dao.CityWeather;
 import com.bolming.weather.dao.CityWeatherXmlParser;
 import com.bolming.weather.dao.WeatherDao;
 import com.bolming.weather.dao.Wind;
+import com.bolming.weather.setting.Settings;
 
 public class TheWeatherAppWidgetProvider extends AppWidgetProvider {
 	public final static String MY_ACTION_UPDATE_WIDGETS = "com.bolming.weather.intent.action.APPWIDGET_UPDATE";
@@ -106,7 +107,7 @@ public class TheWeatherAppWidgetProvider extends AppWidgetProvider {
 		@Override
 		public void run() {
 			super.run();
-			mWeatherDao.parse(LocationUtil.readLocation(mContext));
+			mWeatherDao.parse(Settings.getInstance().getCurrLocation());
 			CityWeather cityWeather = mWeatherDao.getCityWeather();
 			Bitmap bm = null;
 			if(null != cityWeather)  {

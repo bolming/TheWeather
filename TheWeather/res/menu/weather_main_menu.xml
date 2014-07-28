@@ -3,5 +3,6 @@
     
     <item android:id="@+id/wheather_main_cancel" android:title="cancel"/>
     <item android:id="@+id/wheather_main_updateLocation" android:title="update location"/>
+    <item android:id="@+id/wheather_main_more" android:title="more"/>
 
 </menu>

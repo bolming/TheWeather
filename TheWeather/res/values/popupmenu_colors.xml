@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="popupmenu_bg">#4c000000</color>
+    <color name="popupmenu_item_pressed_bg">#fffacd</color>
+    <color name="popupmenu_item_normal_bg">#4cfff5ee</color>
+    <color name="popupmenu_item_dividor_bg">#78fff5ee</color>
+</resources>

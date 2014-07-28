@@ -2,27 +2,23 @@ package com.bolming.weather.dao;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import org.apache.http.client.HttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bolming.weather.conf.Debug;
+import com.bolming.weather.webservice.WebServices;
+import com.bolming.weather.webservice.WebServices.Type;
 
 public class CityWeatherJsonParser implements WeatherDao{
 	private final static String TARGET_JSON = "/mnt/sdcard/theweather/debug/31.23,120.57.json";
-	private final static String TARGET_JSON_URL = "http://api.wunderground.com/api/2755dad4ff1d72a3/conditions/lang:CN/q/%f,%f.json";
-
+	
 	private final static String NAME_OBSERVATION = "current_observation";
 	private final static String NAME_LOCATION = "display_location";
 	private final static String NAME_CITY = "full";
@@ -55,8 +51,7 @@ public class CityWeatherJsonParser implements WeatherDao{
 					sb.append(buffer);
 				}
 			}else{				
-				if(null == mylocation) mylocation = MyLocation.DEF_LOCATION;
-				URL url = new URL(String.format(TARGET_JSON_URL, mylocation.latitude, mylocation.longitude) );
+				URL url = new URL(WebServices.getWeatherWebserviceUrl(Type.json, mylocation));
 				HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 				httpConn.setConnectTimeout(1000 * 10);
 				httpConn.setReadTimeout(1000 * 5);

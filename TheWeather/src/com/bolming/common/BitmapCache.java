@@ -71,7 +71,7 @@ public class BitmapCache implements IBitmapCache{
 	 * @return
 	 * {@link BitmapCache} instance
 	 */
-	public synchronized static BitmapCache getInstance(){		
+	public static BitmapCache getInstance(){		
 		return mInstance;
 	}
 

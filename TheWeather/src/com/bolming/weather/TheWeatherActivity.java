@@ -1,7 +1,9 @@
 package com.bolming.weather;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -15,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bolming.common.BitmapCache;
+import com.bolming.view.PopupMenu;
 import com.bolming.weather.dao.CityWeather;
 import com.bolming.weather.dao.CityWeatherXmlParser;
 import com.bolming.weather.dao.Forecast;
@@ -40,6 +42,10 @@ import com.bolming.weather.dao.IForecastDao;
 import com.bolming.weather.dao.MyLocation;
 import com.bolming.weather.dao.WeatherDao;
 import com.bolming.weather.dao.Wind;
+import com.bolming.weather.db.Footprint;
+import com.bolming.weather.db.FootprintDbHelper;
+import com.bolming.weather.setting.Settings;
+import com.bolming.weather.setting.Settings.Lang;
 
 public class TheWeatherActivity extends Activity {
 	private final static String Tag = "TheWeatherActivity";
@@ -60,7 +66,11 @@ public class TheWeatherActivity extends Activity {
 	private LinearLayout mWeatherWidget;
 	private Bitmap mBmWeatherImg;
 
+	private MyLocation mLocation;
+	private boolean mHasMenu = true;
+	
 	private ProgressBar mPrgsBar;
+	private PopupMenu mPopupMenu;
 	
 	private final static int PRGS_CURR_WEATHER_FINISH = 1 << 0;
 	private final static int PRGS_FORECAST_FINISH = 1 << 1;
@@ -110,13 +120,36 @@ public class TheWeatherActivity extends Activity {
         mForecastList = new ArrayList<Forecast>(0);
         mForecastListViewAdapter = new ForecastListViewAdapter();
         
-        getView();		
+        mPopupMenu = new PopupMenu(this);        
+        
+        if(getDataFromIntent()) { // if got location info, it is showing footprint, so there is no menu.
+        	mHasMenu = false;
+        }
+        
+        getView();
+        setOnClickListener();
 
         init();  
     }    
-    
-    @Override
+    /**
+     * get the location info if the location is passed by intent, otherwise get the current info from Settings.
+     * @return
+     * true if the intent contains the location info, false otherwise
+     */
+    private boolean getDataFromIntent() {
+		Intent intent = getIntent();
+		mLocation = intent.getParcelableExtra(Constants.LOCATION);
+		if(null == mLocation) {
+			mLocation = Settings.getInstance().getCurrLocation();
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
+		if(!mHasMenu) return false;
     	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.weather_main_menu, menu);
     	return true;
@@ -130,19 +163,11 @@ public class TheWeatherActivity extends Activity {
 			break;
 		case R.id.wheather_main_updateLocation:
 			if(updateLocation()) {
-				sendBroadcast(new Intent(TheWeatherAppWidgetProvider.MY_ACTION_UPDATE_WIDGETS));
-				if(null != mCityWeatherParseAsyncTask){
-					mCityWeatherParseAsyncTask.cancel(true);
-				}
-				mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);
-				mCityWeatherParseAsyncTask.execute(mWeatherDao);
-				
-				// get the forecasts
-				if(mGetForecastInfoThread.hasDied()){
-					mGetForecastInfoThread = new GetForecastInfoThread(mContext);
-					mGetForecastInfoThread.start();
-				}
+				requestWeatherInfo();
 			}
+			break;
+		case R.id.wheather_main_more:
+			mPopupMenu.show(findViewById(R.id.main_root));
 			break;
 		default:
 	    	return super.onOptionsItemSelected(item);
@@ -151,7 +176,24 @@ public class TheWeatherActivity extends Activity {
     	return true;
     }
     
-    @Override
+    private void requestWeatherInfo() {
+    	// update app widget
+    	sendBroadcast(new Intent(TheWeatherAppWidgetProvider.MY_ACTION_UPDATE_WIDGETS));
+    	
+		if(null != mCityWeatherParseAsyncTask){
+			mCityWeatherParseAsyncTask.cancel(true);
+		}
+		mCityWeatherParseAsyncTask = new CityWeatherParseAsyncTask(mContext);
+		mCityWeatherParseAsyncTask.execute(mWeatherDao);
+		
+		// get the forecasts
+		if(mGetForecastInfoThread.hasDied()){
+			mGetForecastInfoThread = new GetForecastInfoThread(mContext);
+			mGetForecastInfoThread.start();
+		}
+	}
+
+	@Override
     protected void onDestroy() {
     	if(null != mCityWeatherParseAsyncTask){
 			mCityWeatherParseAsyncTask.cancel(true);
@@ -185,7 +227,7 @@ public class TheWeatherActivity extends Activity {
     
     private boolean saveLocation(Location location){
 		Log.d(Tag, "latiude: " + location.getLatitude() + ", longitude: " + location.getLongitude());
-		LocationUtil.saveLocation(mContext, location);
+		Settings.getInstance().upateLocation(location);
 		
     	return true;
     }
@@ -226,6 +268,54 @@ public class TheWeatherActivity extends Activity {
 		
 		// get the forecasts
 		mGetForecastInfoThread.start();
+    }
+    
+    private void setOnClickListener(){
+    	mPopupMenu.setChangeLangBtnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Settings settings = Settings.getInstance();
+				settings.updateLang(settings.getLang().equals(Lang.EN) ? Lang.CN : Lang.EN);
+				
+				requestWeatherInfo();				
+				mPopupMenu.dismiss();
+			}
+		});
+    	
+    	mPopupMenu.setSaveLocationBtnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Footprint footprint = new Footprint();
+				footprint.setCity(mCityWeather.getCity());
+				
+				footprint.setLongitude(mLocation.longitude);
+				footprint.setLatitude(mLocation.latitude);
+				
+				footprint.setIcon(mCityWeather.getIconUrl());
+				footprint.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));				
+
+				FootprintDbHelper mFootprintDbHelper = new FootprintDbHelper(mContext);				
+				mFootprintDbHelper.insert(footprint);				
+
+				mPopupMenu.dismiss();
+				
+				Toast.makeText(mContext, R.string.main_prompt_footprint_saved, Toast.LENGTH_SHORT)
+					.show();
+			}
+		});
+    	
+    	mPopupMenu.setShowFootprintBtnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, FootprintListActivity.class);
+				startActivity(intent);
+				
+				mPopupMenu.dismiss();
+			}
+		});
     }
     
     private void updateWidget(CityWeather weather, Bitmap weatherImg){
@@ -291,7 +381,7 @@ public class TheWeatherActivity extends Activity {
 			
 			TheWeatherActivity activity = mWeakRefActivity.get();
 			if(null == activity) return false;
-			MyLocation location = LocationUtil.readLocation(activity);
+			MyLocation location = activity.mLocation;
 			activity = null;
 			
 			// a long term process
@@ -426,7 +516,7 @@ public class TheWeatherActivity extends Activity {
     	private List<Forecast> getForecastInfo(){
     		TheWeatherActivity activity = mWeakRefActity.get();
     		if(null != activity){
-    			MyLocation location = LocationUtil.readLocation(activity);
+    			MyLocation location = activity.mLocation;
     			activity = null;
             	mForecastDao.requestThenParseData(location);
     		}
